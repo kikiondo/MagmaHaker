@@ -62,29 +62,57 @@ class Game
   def inicioDeJuego
     jugador1 = "x"
     jugador2 = "o"
+    turno = 0
 
     crearTablero
     crearTableroReferencia
-    mostrarConsolaTableroReferencia
-    puts "/**************************/"
-    mostrarConsolaTableroJuego
+
     puts "Preparence juagdores ._.)/: "   
     
-    for i in 0...@tableroTamaño*@tableroTamaño
-      mostrarConsolaTableroReferencia
-      mostrarConsolaTableroJuego
-      puts "¿En donde quieres colocar tu figura?"
-      posicion = gets.chomp.to_i
-      posiciones = getPosition(posicion, @tableroReferencia)
+   loop do
+      puts "*******************************"
+      puts "Hola mi mahy #{turno}"
+    
+      if turno % 2 == 0
+        mostrarConsolaTableroReferencia
+        mostrarConsolaTableroJuego
+        puts "¿En donde quieres colocar tu figura jugador 1?"
+        posicion = gets.chomp.to_i
+        posiciones = getPosition(posicion, @tableroReferencia)
 
-      x = posiciones[0][0]
-      y = posiciones[1][0]
+        x = posiciones[0][0]
+        y = posiciones[1][0]
 
-      if @tableroJuego[x][y] == "X" || @tableroJuego[x][y] == "O"
-        puts "esta posicion ya esta en uso"
-      else
-          @tableroJuego[x][y] = jugador1
+        if @tableroJuego[x][y] == "x" || @tableroJuego[x][y] == "o"
+          puts "esta posicion ya esta en uso"
+        else
+            @tableroJuego[x][y] = jugador1
+            turno = turno + 1
+        end
       end
+
+      if turno % 2 != 0
+        mostrarConsolaTableroReferencia
+        mostrarConsolaTableroJuego
+        puts "¿En donde quieres colocar tu figura jugador 2?"
+        posicion = gets.chomp.to_i
+        posiciones = getPosition(posicion, @tableroReferencia)
+
+        x = posiciones[0][0]
+        y = posiciones[1][0]
+
+        if @tableroJuego[x][y] == "x" || @tableroJuego[x][y] == "o"
+          puts "esta posicion ya esta en uso"
+        else
+            @tableroJuego[x][y] = jugador2
+            turno = turno + 1
+        end
+      end
+
+      if(turno == (@tableroTamaño*@tableroTamaño))
+        break
+      end
+
     end
   end
 end
