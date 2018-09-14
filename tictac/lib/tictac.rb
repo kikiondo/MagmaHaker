@@ -59,6 +59,67 @@ class Game
     end
   end
   
+  def evaluarGanador(jugador, tablerojuego)
+    # EVALUAR GANADOR HORIZONTAL
+        # Linea 1
+    if tablerojuego[0][0] != 0 && tablerojuego[0][1] != 0 && tablerojuego[0][2] != 0
+      if tablerojuego[0][0] == tablerojuego[0][1] &&  tablerojuego[0][1] == tablerojuego[0][2]
+          return jugador
+      end
+    end
+
+    # Linea 2
+    if tablerojuego[1][0] != 0 && tablerojuego[1][1] != 0 && tablerojuego[1][2] != 0
+      if tablerojuego[1][0] == tablerojuego[1][1] &&  tablerojuego[1][1] == tablerojuego[1][2]
+          return jugador
+      end
+    end
+
+    # Linea 3
+    if tablerojuego[2][0] != 0 && tablerojuego[2][1] != 0 && tablerojuego[2][2] != 0
+      if tablerojuego[2][0] == tablerojuego[2][1] &&  tablerojuego[2][1] == tablerojuego[2][2]
+          return jugador
+      end
+    end
+
+    # VALIDAR EN VERTICAL
+    # Linea 1
+    if tablerojuego[0][0] != 0 && tablerojuego[1][0] != 0 && tablerojuego[2][0] != 0
+      if tablerojuego[0][0] == tablerojuego[1][0] &&  tablerojuego[1][0] == tablerojuego[2][0]
+          return jugador
+      end
+    end
+
+    # Linea 2
+    if tablerojuego[0][1] != 0 && tablerojuego[1][1] != 0 && tablerojuego[2][1] != 0
+      if tablerojuego[0][1] == tablerojuego[1][1] &&  tablerojuego[1][1] == tablerojuego[2][1]
+          return jugador
+      end
+    end
+
+    # Linea 3
+    if tablerojuego[0][2] != 0 && tablerojuego[1][2] != 0 && tablerojuego[2][2] != 0
+      if tablerojuego[0][2] == tablerojuego[1][2] &&  tablerojuego[1][2] == tablerojuego[2][2]
+          return jugador
+      end
+    end
+
+    #CRUCES
+    #DERECHA
+    if tablerojuego[0][0] != 0 && tablerojuego[1][1] != 0 && tablerojuego[2][2] != 0
+      if tablerojuego[0][0] == tablerojuego[1][1] &&  tablerojuego[1][1] == tablerojuego[2][2]
+          return jugador
+      end
+    end
+
+    #IZQUIERDA
+    if tablerojuego[0][2] != 0 && tablerojuego[1][1] != 0 && tablerojuego[2][0] != 0
+      if tablerojuego[0][2] == tablerojuego[1][1] &&  tablerojuego[1][1] == tablerojuego[2][0]
+          return jugador
+      end
+    end
+  end
+
   def inicioDeJuego
     jugador1 = "x"
     jugador2 = "o"
@@ -89,6 +150,10 @@ class Game
             @tableroJuego[x][y] = jugador1
             turno = turno + 1
         end
+        if evaluarGanador(jugador1, @tableroJuego) == jugador1
+          puts "EL GANADOR ES #{jugador1}"
+          break
+        end
       end
 
       if turno % 2 != 0
@@ -106,6 +171,11 @@ class Game
         else
             @tableroJuego[x][y] = jugador2
             turno = turno + 1
+        end
+
+        if evaluarGanador(jugador2, @tableroJuego) == jugador2
+          puts "EL GANADOR ES #{jugador2}"
+          break
         end
       end
 
