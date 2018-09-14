@@ -36,28 +36,60 @@ class Game
   end
 
   def mostrarConsolaTableroJuego
+    puts "Tablero del juego original"
     tableroJuego.each_with_index do |e, row, col| 
       puts "#{e}"
     end
   end
 
   def mostrarConsolaTableroReferencia
+    puts "Tablero con las posiciones para guiarlos"
     tableroReferencia.each_with_index do |e, row, col|
       puts "#{e}"
     end
   end
   
+  def getPosition(posicion, tableroReferencia)
+    for f in 0..tableroReferencia.size
+      for g in 0..tableroReferencia.size
+        if tableroReferencia[f][g] == posicion
+          return [f],[g]
+        end
+      end
+    end
+  end
+  
   def inicioDeJuego
+    jugador1 = "x"
+    jugador2 = "o"
+
     crearTablero
     crearTableroReferencia
     mostrarConsolaTableroReferencia
     puts "/**************************/"
     mostrarConsolaTableroJuego
-    puts "Inicio"
+    puts "Preparence juagdores ._.)/: "   
+    
+    for i in 0...@tableroTamaño*@tableroTamaño
+      mostrarConsolaTableroReferencia
+      mostrarConsolaTableroJuego
+      puts "¿En donde quieres colocar tu figura?"
+      posicion = gets.chomp.to_i
+      posiciones = getPosition(posicion, @tableroReferencia)
+
+      x = posiciones[0][0]
+      y = posiciones[1][0]
+
+      if @tableroJuego[x][y] == "X" || @tableroJuego[x][y] == "O"
+        puts "esta posicion ya esta en uso"
+      else
+          @tableroJuego[x][y] = jugador1
+      end
+    end
   end
 end
 
-# /////////////////INICIO DEL PROGRAMA////////////////
+# /////////////////PREPARACIÓN DEL JUEGO////////////////
 
 print "Teclea el numero de tamaño: "
 tamañoSeleccionado = gets.chomp.to_i
